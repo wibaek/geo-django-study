@@ -1,3 +1,9 @@
 ```
-pip3 freeze > requirements.txt
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+```
+
+```
+python3 manage.py runserver
 ```
