@@ -47,3 +47,17 @@ Layer은 여러 Feature로 구성되어 있는데, 이를 iterable 하게 접근
 
 Feature에서 feat.geom에 geometry 정보가 저장되어 있고, feat.geom.json으로 json 형태를 확인할 수 있다.
 
+### Spatial Queries
+```python
+pnt_wkt = "POINT(-95.3385 29.7245)"
+from world.models import WorldBorder
+WorldBorder.objects.filter(mpoly__contains=pnt_wkt)
+```
+위와 같이 Point가 Polygon에 포함되는지 확인할 수 있다.
+
+```python
+from django.contrib.gis.geos import Point
+pnt = Point(12.4604, 43.9420)
+WorldBorder.objects.get(mpoly__intersects=pnt)
+```
+위와 같이 Point가 Polygon과 교차하는지(포함하거나 겹치는지) 확인할 수 있다.
