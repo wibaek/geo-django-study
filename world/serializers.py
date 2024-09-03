@@ -7,4 +7,5 @@ class WorldBorderSerializer(GeoFeatureModelSerializer):
         model = WorldBorder
         geo_field = "mpoly"
         fields = "__all__"
-        auto_bbox = True
+        # auto_bbox = True
+        bbox_geo_field = "mpoly"  # auto_bbox나 bbox_get_field 둘 중 하나만 사용해야 함
