@@ -36,8 +36,14 @@ class WorldBorderNearbyView(generics.ListAPIView):
         if lat is None or lng is None:
             raise ValueError("lat와 lng를 입력해주세요.")
 
-        point = Point(float(lat), float(lng), srid=4326)
+        point = Point(float(lng), float(lat), srid=4326)
 
+        # Method 1: mpoly 필드를 이용
+        return WorldBorder.objects.annotate(distance=Distance("mpoly", point)).order_by(
+            "distance"
+        )[:1]
+
+        # Method 2: lat, lon 필드를 이용
         return WorldBorder.objects.annotate(
             distance=Distance(
                 Func(
